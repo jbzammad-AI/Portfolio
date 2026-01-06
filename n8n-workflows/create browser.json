@@ -1,0 +1,108 @@
+{
+  "name": "create browser",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "url"
+            },
+            {
+              "name": "profile_name"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "e05a3cd7-68d2-466e-b647-5e2a8fc3b572",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "profileName": "Jb",
+        "saveProfileOnTermination": true,
+        "additionalFields": {
+          "solveCaptcha": true
+        }
+      },
+      "type": "n8n-nodes-base.airtop",
+      "typeVersion": 1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "7f421df7-60db-42ed-b04a-8d36b4a502e4",
+      "name": "Create a session",
+      "credentials": {
+        "airtopApi": {
+          "id": "dTawahzeHspMxQZ6",
+          "name": "Airtop account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "window",
+        "url": "={{ $('When Executed by Another Workflow').item.json.url }}",
+        "getLiveView": true,
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.airtop",
+      "typeVersion": 1,
+      "position": [
+        416,
+        0
+      ],
+      "id": "6cc57909-dc24-4816-8827-a3444fd25efb",
+      "name": "Create a window",
+      "credentials": {
+        "airtopApi": {
+          "id": "dTawahzeHspMxQZ6",
+          "name": "Airtop account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Create a session",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a session": {
+      "main": [
+        [
+          {
+            "node": "Create a window",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "5f1bfd76-368b-4c93-82f7-8eefef42ab95",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "9d2cf59f957278710ad941957570f51e147193fd195c796f124637ef7b587a8f"
+  },
+  "id": "6Ohtxenkc4hY3VqY",
+  "tags": []
+}
