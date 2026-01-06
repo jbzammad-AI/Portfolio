@@ -1,0 +1,4 @@
+Date: 26/12/2025
+Vendor: Uber
+Amount: 12.50
+Category: Travel

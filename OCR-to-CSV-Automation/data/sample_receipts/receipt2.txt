@@ -1,0 +1,4 @@
+Date: 26/12/2025
+Vendor: Starbucks
+Amount: 5.25
+Category: Meals
