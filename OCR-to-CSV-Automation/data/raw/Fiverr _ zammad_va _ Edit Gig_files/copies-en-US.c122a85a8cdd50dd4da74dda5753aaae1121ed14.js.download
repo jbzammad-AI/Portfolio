@@ -1,0 +1,1 @@
+"undefined"==typeof i18n?setTimeout(function(){throw new Error("i18n is not defined")}):i18n.add({"en-US":{dropdown:{dropdownTrigger:{ariaLabel:"menu"}}}});

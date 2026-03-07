@@ -1,0 +1,51 @@
+tutor_id,tutor_name,tutor_bio,tutor_rate,tutor_lat,tutor_lon,gender
+1,Tutor_1,Chemistry tutor with exam success,132,22.323947279735055,114.19377865507187,Female
+2,Tutor_2,"Experienced Physics tutor, SEN-friendly",70,22.33271727582222,114.15112635996913,Male
+3,Tutor_3,Chemistry tutor with exam success,117,22.349337919914284,114.24143684188826,Female
+4,Tutor_4,Medical interview preparation tutor,127,22.345776153570366,114.24298986070936,Female
+5,Tutor_5,Chemistry tutor with exam success,148,22.339352011818256,114.1983639577372,Female
+6,Tutor_6,Math Olympiad specialist,39,22.318383560625243,114.15610219924274,Male
+7,Tutor_7,Math Olympiad specialist,114,22.322549747833833,114.1747463654552,Male
+8,Tutor_8,"Experienced Physics tutor, SEN-friendly",91,22.28309722971271,114.23353018879203,Male
+9,Tutor_9,"English tutor, SEN-friendly",53,22.313770266319498,114.23264487246988,Male
+10,Tutor_10,Chemistry tutor with exam success,34,22.338544981850724,114.17393968675827,Female
+11,Tutor_11,"Math tutor, IB and A-Level",49,22.309840043069933,114.2157728775649,Female
+12,Tutor_12,Chemistry tutor with exam success,84,22.29073289565149,114.20228367238835,Female
+13,Tutor_13,Math Olympiad specialist,85,22.310972641167808,114.18055033600241,Male
+14,Tutor_14,"Experienced Physics tutor, SEN-friendly",49,22.297245097524588,114.19159729920463,Female
+15,Tutor_15,Chemistry tutor with exam success,131,22.31053160738138,114.18693311130701,Male
+16,Tutor_16,Aviation studies expert tutor,97,22.309671014762937,114.21430404068423,Female
+17,Tutor_17,"Math tutor, IB and A-Level",105,22.336649910950033,114.17785044165831,Male
+18,Tutor_18,Aviation studies expert tutor,104,22.31696903253522,114.23021453940602,Male
+19,Tutor_19,"English tutor, SEN-friendly",36,22.346482044538813,114.23733138676609,Female
+20,Tutor_20,"Experienced Physics tutor, SEN-friendly",115,22.318384968420155,114.16400691112588,Male
+21,Tutor_21,Medical interview preparation tutor,104,22.34862711832638,114.21716966338846,Male
+22,Tutor_22,"English tutor, SEN-friendly",137,22.321370604449793,114.20764763423097,Female
+23,Tutor_23,Aviation studies expert tutor,72,22.34487932306948,114.20550779588959,Male
+24,Tutor_24,"English tutor, SEN-friendly",58,22.33441583106899,114.16304859167586,Male
+25,Tutor_25,Medical interview preparation tutor,43,22.335566759301493,114.22029200108364,Male
+26,Tutor_26,"English tutor, SEN-friendly",93,22.287789422892466,114.18362287880373,Female
+27,Tutor_27,Aviation studies expert tutor,112,22.334944109573257,114.21423790179506,Male
+28,Tutor_28,"Experienced Physics tutor, SEN-friendly",35,22.311815539333306,114.15890008155615,Male
+29,Tutor_29,Aviation studies expert tutor,103,22.323714630066167,114.21361217617613,Male
+30,Tutor_30,Medical interview preparation tutor,138,22.282414466557217,114.22421817604224,Female
+31,Tutor_31,"Experienced Physics tutor, SEN-friendly",110,22.303487436627368,114.15442159371963,Male
+32,Tutor_32,Aviation studies expert tutor,66,22.316078134914523,114.15576727693649,Male
+33,Tutor_33,"Experienced Physics tutor, SEN-friendly",68,22.30178036093145,114.21777723858705,Female
+34,Tutor_34,"Math tutor, IB and A-Level",35,22.334941290620275,114.16463773022485,Female
+35,Tutor_35,Math Olympiad specialist,33,22.3135620811842,114.2218536911791,Male
+36,Tutor_36,Chemistry tutor with exam success,101,22.2893133616558,114.17367021809686,Male
+37,Tutor_37,Medical interview preparation tutor,142,22.303988670809108,114.17121882510442,Female
+38,Tutor_38,"English tutor, SEN-friendly",41,22.281144631911854,114.20283278389721,Male
+39,Tutor_39,Math Olympiad specialist,80,22.32614062315788,114.16877913600442,Female
+40,Tutor_40,"Experienced Physics tutor, SEN-friendly",41,22.33232272231799,114.21790328665125,Male
+41,Tutor_41,Medical interview preparation tutor,101,22.28634031952153,114.1872906825641,Male
+42,Tutor_42,Math Olympiad specialist,75,22.332845598643946,114.197627252955,Female
+43,Tutor_43,Medical interview preparation tutor,109,22.321972934430637,114.17286798070378,Female
+44,Tutor_44,"English tutor, SEN-friendly",45,22.348652598459225,114.19217959669412,Female
+45,Tutor_45,"Math tutor, IB and A-Level",107,22.297907566146193,114.17951325356258,Male
+46,Tutor_46,"English tutor, SEN-friendly",63,22.284995015076646,114.18065541892041,Male
+47,Tutor_47,Aviation studies expert tutor,40,22.32101945667367,114.22253932845726,Female
+48,Tutor_48,"Math tutor, IB and A-Level",104,22.34455642340561,114.23196851922714,Male
+49,Tutor_49,"Math tutor, IB and A-Level",83,22.34843792671181,114.17158012811778,Female
+50,Tutor_50,Medical interview preparation tutor,58,22.318683118891023,114.23702332363365,Female
