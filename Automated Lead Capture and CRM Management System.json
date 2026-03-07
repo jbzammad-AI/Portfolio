@@ -1,0 +1,765 @@
+{
+  "name": "Automated Lead Capture and CRM Management System",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lead-capture",
+        "options": {}
+      },
+      "id": "636f5b22-d5dc-4ab7-9086-a5e6d3d8c314",
+      "name": "Receive Lead from Website",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        256,
+        752
+      ],
+      "webhookId": "cc6525c4-ca84-4519-833b-7a10dfbdb0eb"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "11I4Ssla1THaCtoKYsASYs3DwmOAJHgtBmmTj8zYH6rk",
+          "mode": "list",
+          "cachedResultName": "AI Leads Database",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/11I4Ssla1THaCtoKYsASYs3DwmOAJHgtBmmTj8zYH6rk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/11I4Ssla1THaCtoKYsASYs3DwmOAJHgtBmmTj8zYH6rk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json.properties.firstname.value }} {{$json.properties.lastname.value }}",
+            "Phone": "={{ $json.properties.phone.value }}",
+            "Company": "={{ $json.properties.company.value }}",
+            "Message": "={{ $json.properties.message.value }}",
+            "LeadScore": "={{ $json.properties.lead_score.value }}",
+            "LeadSummary": "={{ $json.properties.lead_summary.value }}",
+            "LeadIntent": "={{ $json.properties.lead_intent.value }}",
+            "SuggestedAction": "={{ $json.properties.suggested_action.value }}",
+            "Email": "={{ $json.properties.email.value }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Company",
+              "displayName": "Company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Message",
+              "displayName": "Message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "LeadScore",
+              "displayName": "LeadScore",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "LeadSummary",
+              "displayName": "LeadSummary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "LeadIntent",
+              "displayName": "LeadIntent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "SuggestedAction",
+              "displayName": "SuggestedAction",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "f1080a3d-318d-4b10-bd50-c18387b1c270",
+      "name": "Save Lead to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1376,
+        1056
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "SXv44iEKaUkQ8x8C",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{$json[\"Email\"]}}{{ $('Check if Hot Lead').item.json['identity-profiles'][0].identities[0].value }}",
+        "subject": "Thank you for contacting us",
+        "message": "=Hello {{$json[\"Name\"]}},\n\nThank you for reaching out to us! We have received your message \"{{$json[\"Message\"]}}\" and our team will contact you soon.\n\n\n\nBest regards,\nThe Team",
+        "options": {}
+      },
+      "id": "88a1e7da-aebf-4f5c-8805-8d410e7bf5e6",
+      "name": "Send Confirmation Email to Lead",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1600,
+        1056
+      ],
+      "webhookId": "cc47e72a-72a7-4c41-b6e7-c6bd58be5019",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "XqcbArn6bZ6pdZuR",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C0AJZB5BYRZ",
+          "mode": "list",
+          "cachedResultName": "automation-alerts"
+        },
+        "text": "=🎯 *New Lead Received!*\n\n*Name:* {{ $('Save Lead to Google Sheets').item.json.Name }}\n*Email:*{{ $('Extract Lead Score').item.json.email }}\n*Company:* {{ $('Extract Lead Score').item.json.company }}\n*Phone:* {{ $('Extract Lead Score').item.json.phone }}\n*Message:* {{ $('Extract Lead Score').item.json.message }}",
+        "otherOptions": {}
+      },
+      "id": "c804eb92-b76e-4bfe-a295-ba4f72719f54",
+      "name": "Notify Business Owner",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.4,
+      "position": [
+        1824,
+        1056
+      ],
+      "webhookId": "4c3ff070-9308-4995-b577-0ddf5b39434f",
+      "credentials": {
+        "slackOAuth2Api": {
+          "id": "OWHRZeALaQqBA5H7",
+          "name": "Slack account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "listId": "69ac18700cba432214b20edc",
+        "name": "=New Lead: {{ $('Save Lead to Google Sheets').item.json.Name }}",
+        "description": "=**Lead Details:**\n\n**Name:** {{ $('Save Lead to Google Sheets').item.json.Name }}\n**Email:** {{ $('Save Lead to Google Sheets').item.json.Email }}\n**Phone:** {{ $('Save Lead to Google Sheets').item.json.Phone }}\n**Company:** {{ $('Save Lead to Google Sheets').item.json.Company }}\n\n**Message:**{{ $('Save Lead to Google Sheets').item.json.Message }}\n\n\n",
+        "additionalFields": {}
+      },
+      "id": "c7fe2912-c0aa-4780-93da-ee3efcdd7c63",
+      "name": "Create Trello Card for Follow-up",
+      "type": "n8n-nodes-base.trello",
+      "typeVersion": 1,
+      "position": [
+        2048,
+        1056
+      ],
+      "credentials": {
+        "trelloApi": {
+          "id": "6VuIGoLrsAWuGLMy",
+          "name": "Trello account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C0AJZB5BYRZ",
+          "mode": "list",
+          "cachedResultName": "automation-alerts"
+        },
+        "text": "=🚨 *Lead Capture Workflow Error*\n\n*Error Message:* {{ $json.error.message }}\n\n*Error Details:* {{ $json.error.description || \"No additional details available\" }}\n\n*Time:* {{ $now.toISO() }}\n\nPlease check the workflow and resolve the issue.",
+        "otherOptions": {}
+      },
+      "id": "8892e6bf-988a-4359-92e1-7acdad3a9705",
+      "name": "Send Error Notification",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.4,
+      "position": [
+        160,
+        336
+      ],
+      "webhookId": "91e7deb5-b64d-4881-8622-4098e8a2c902",
+      "credentials": {
+        "slackOAuth2Api": {
+          "id": "OWHRZeALaQqBA5H7",
+          "name": "Slack account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "id-1",
+              "name": "name",
+              "value": "={{ $json.body.name }}",
+              "type": "string"
+            },
+            {
+              "id": "id-2",
+              "name": "email",
+              "value": "={{ $json.body.email }}",
+              "type": "string"
+            },
+            {
+              "id": "id-3",
+              "name": "phone",
+              "value": "={{ $json.body.phone }}",
+              "type": "string"
+            },
+            {
+              "id": "id-4",
+              "name": "company",
+              "value": "={{ $json.body.company }}",
+              "type": "string"
+            },
+            {
+              "id": "id-5",
+              "name": "message",
+              "value": "={{ $json.body.message }}",
+              "type": "string"
+            },
+            {
+              "id": "id-6",
+              "name": "created_at",
+              "value": "={{ $now.toISO() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "4d367ff9-67c2-4527-a17b-03a374d253c7",
+      "name": "Normalize Lead Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        480,
+        752
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "id-1",
+              "name": "lead_score",
+              "value": "={{ $('Extract AI Results').item.json.lead_score }}",
+              "type": "string"
+            },
+            {
+              "id": "id-2",
+              "name": "lead_summary",
+              "value": "={{ $('Extract AI Results').item.json.lead_summary }}",
+              "type": "string"
+            },
+            {
+              "id": "id-3",
+              "name": "lead_intent",
+              "value": "={{ $('Extract AI Results').item.json.lead_intent }}",
+              "type": "string"
+            },
+            {
+              "id": "id-4",
+              "name": "suggested_action",
+              "value": "={{ $('Extract AI Results').item.json.suggested_action }}",
+              "type": "string"
+            },
+            {
+              "id": "id-5",
+              "name": "name",
+              "value": "={{ $('Extract AI Results').item.json.name }}",
+              "type": "string"
+            },
+            {
+              "id": "id-6",
+              "name": "email",
+              "value": "={{ $('Extract AI Results').item.json.email }}",
+              "type": "string"
+            },
+            {
+              "id": "id-7",
+              "name": "phone",
+              "value": "={{ $('Extract AI Results').item.json.phone }}",
+              "type": "string"
+            },
+            {
+              "id": "id-8",
+              "name": "company",
+              "value": "={{ $('Extract AI Results').item.json.company }}",
+              "type": "string"
+            },
+            {
+              "id": "id-9",
+              "name": "message",
+              "value": "={{ $('Extract AI Results').item.json.message }}",
+              "type": "string"
+            },
+            {
+              "id": "id-10",
+              "name": "created_at",
+              "value": "={{ $('Extract AI Results').item.json.created_at }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f2f9c10a-c923-4389-9ecd-87ae80d2d13a",
+      "name": "Extract Lead Score",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        480,
+        1056
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "id-1",
+              "leftValue": "={{ $json.lead_score }}{{ $json.properties.lead_score.value }}",
+              "rightValue": "HOT",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {
+          "ignoreCase": true
+        }
+      },
+      "id": "a5357386-ffe1-4fbf-8d7d-362dc212f2ef",
+      "name": "Check if Hot Lead",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        928,
+        1056
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C0AJZB5BYRZ",
+          "mode": "list",
+          "cachedResultName": "automation-alerts"
+        },
+        "text": "=🔥 HOT LEAD ALERT\n\n🎯 *New Lead Received!*\n\n*Name:* {{ $('Extract Lead Score').item.json.name }}\n*Email:*{{ $('Extract Lead Score').item.json.email }}\n*Company:* {{ $('Extract Lead Score').item.json.company }}\n*Phone:* {{ $('Extract Lead Score').item.json.phone }}\n*Message:* {{ $('Extract Lead Score').item.json.message }}\nSuggested Action:\n{{ $('Extract Lead Score').item.json.suggested_action }}",
+        "otherOptions": {}
+      },
+      "id": "badd6bb1-1613-4c31-ac62-3b5d93cde6fe",
+      "name": "Send Hot Lead Alert",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.4,
+      "position": [
+        1152,
+        976
+      ],
+      "webhookId": "3727ac8c-ef8b-41f1-8d6e-22db26ee6f9c",
+      "credentials": {
+        "slackOAuth2Api": {
+          "id": "bhbch0OjcXwMlyE7",
+          "name": "Slack account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "id-1",
+              "name": "lead_score",
+              "value": "={{ $json.candidates[0].content.parts[0].text.match(/\"lead_score\":\\s*\"(HOT|WARM|COLD)\"/)?.[1] || 'WARM' }}",
+              "type": "string"
+            },
+            {
+              "id": "id-2",
+              "name": "lead_summary",
+              "value": "={{ $json.candidates[0].content.parts[0].text.match(/\"summary\":\\s*\"([^\"]+)\"/)?.[1] || 'No summary available' }}",
+              "type": "string"
+            },
+            {
+              "id": "id-3",
+              "name": "lead_intent",
+              "value": "={{ $json.candidates[0].content.parts[0].text.match(/\"intent\":\\s*\"([^\"]+)\"/)?.[1] || 'Unknown intent' }}",
+              "type": "string"
+            },
+            {
+              "id": "id-4",
+              "name": "suggested_action",
+              "value": "={{ $json.candidates[0].content.parts[0].text.match(/\"suggested_action\":\\s*\"([^\"]+)\"/)?.[1] || 'Follow up within 24 hours' }}",
+              "type": "string"
+            },
+            {
+              "id": "id-5",
+              "name": "name",
+              "value": "={{ $('Normalize Lead Data').item.json.name }}",
+              "type": "string"
+            },
+            {
+              "id": "id-6",
+              "name": "email",
+              "value": "={{ $('Normalize Lead Data').item.json.email }}",
+              "type": "string"
+            },
+            {
+              "id": "id-7",
+              "name": "phone",
+              "value": "={{ $('Normalize Lead Data').item.json.phone }}",
+              "type": "string"
+            },
+            {
+              "id": "id-8",
+              "name": "company",
+              "value": "={{ $('Normalize Lead Data').item.json.company }}",
+              "type": "string"
+            },
+            {
+              "id": "id-9",
+              "name": "message",
+              "value": "={{ $('Normalize Lead Data').item.json.message }}",
+              "type": "string"
+            },
+            {
+              "id": "id-10",
+              "name": "created_at",
+              "value": "={{ $('Normalize Lead Data').item.json.created_at }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "113924c2-d260-4143-8a1c-fb70ebbc1d03",
+      "name": "Extract AI Results",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        256,
+        1056
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "email": "={{ $json.email }}",
+        "additionalFields": {
+          "companyName": "={{ $json.company }}",
+          "customPropertiesUi": {
+            "customPropertiesValues": [
+              {
+                "property": "lead_score",
+                "value": "={{ $json.lead_score.charAt(0).toUpperCase() + $json.lead_score.slice(1).toLowerCase() }}"
+              },
+              {
+                "property": "lead_summary",
+                "value": "={{ $json.lead_summary }}"
+              },
+              {
+                "property": "lead_intent",
+                "value": "={{ $json.lead_intent }}"
+              },
+              {
+                "property": "suggested_action",
+                "value": "={{ $json.suggested_action }}"
+              }
+            ]
+          },
+          "firstName": "={{ $json.name.split(' ')[0] }}",
+          "lastName": "={{ $json.name.split(' ').slice(1).join(' ') || '' }}",
+          "message": "={{ $json.message }}",
+          "phoneNumber": "={{ $json.phone }}"
+        },
+        "options": {}
+      },
+      "id": "c3bf3f20-9b59-4ced-af88-135053a77e85",
+      "name": "Add Lead to HubSpot CRM",
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.2,
+      "position": [
+        704,
+        1056
+      ],
+      "credentials": {
+        "hubspotOAuth2Api": {
+          "id": "b4IXuv9Ox7ikwUxj",
+          "name": "HubSpot OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=AIzaSyAcP8y9h-FRgJWMGzfzzLG9KqHdVUb6jVQ",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"contents\": [\n    {\n      \"parts\": [\n        {\n          \"text\": \"Analyze this sales lead message and return the result in JSON format with fields: lead_score (HOT, WARM, or COLD), summary, intent, and suggested_action. Message: {{ $('Normalize Lead Data').item.json.message }}\"\n        }\n      ]\n    }\n  ]\n}",
+        "options": {}
+      },
+      "id": "e6c9672c-3803-44cc-9808-2931ecbca0bc",
+      "name": "Gemini Lead Analysis",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        288,
+        512
+      ],
+      "onError": "continueErrorOutput"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Receive Lead from Website": {
+      "main": [
+        [
+          {
+            "node": "Normalize Lead Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Lead to Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Send Confirmation Email to Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Confirmation Email to Lead": {
+      "main": [
+        [
+          {
+            "node": "Notify Business Owner",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notify Business Owner": {
+      "main": [
+        [
+          {
+            "node": "Create Trello Card for Follow-up",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Trello Card for Follow-up": {
+      "main": [
+        []
+      ]
+    },
+    "Normalize Lead Data": {
+      "main": [
+        [
+          {
+            "node": "Gemini Lead Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Error Notification": {
+      "main": [
+        []
+      ]
+    },
+    "Extract Lead Score": {
+      "main": [
+        [
+          {
+            "node": "Add Lead to HubSpot CRM",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check if Hot Lead": {
+      "main": [
+        [
+          {
+            "node": "Send Hot Lead Alert",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Save Lead to Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Hot Lead Alert": {
+      "main": [
+        [
+          {
+            "node": "Save Lead to Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract AI Results": {
+      "main": [
+        [
+          {
+            "node": "Extract Lead Score",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add Lead to HubSpot CRM": {
+      "main": [
+        [
+          {
+            "node": "Check if Hot Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini Lead Analysis": {
+      "main": [
+        [
+          {
+            "node": "Extract AI Results",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send Error Notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "availableInMCP": false
+  },
+  "versionId": "4a263c31-cd7e-4115-a96f-9121f47bb880",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "13ddb740cfa94c8ceda62fdabeda7f568e4766617b163a3c6cc5f3cb3d9f12fa"
+  },
+  "id": "c5gyMeAy3dLU2LF9",
+  "tags": []
+}
